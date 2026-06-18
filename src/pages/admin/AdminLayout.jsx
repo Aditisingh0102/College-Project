@@ -3,7 +3,7 @@ import { Routes, Route, Navigate } from 'react-router-dom';
 import { useAppContext } from '../../context/AppContext';
 import Navbar from '../../components/shared/Navbar';
 import Sidebar from '../../components/shared/Sidebar';
-import { LayoutDashboard, Building2, Users, GraduationCap, ClipboardList, Trophy, PieChart, Settings } from 'lucide-react';
+import { LayoutDashboard, Building2, Users, GraduationCap, ClipboardList, Trophy, PieChart, Settings as SettingsIcon } from 'lucide-react';
 
 import Dashboard from './Dashboard';
 import ManageColleges from './ManageColleges';
@@ -28,7 +28,7 @@ export default function AdminLayout() {
     { to: "/admin/batches", label: "Manage Batches", icon: ClipboardList },
     { to: "/admin/contests", label: "All Contests", icon: Trophy },
     { to: "/admin/reports", label: "Reports & Analytics", icon: PieChart },
-    { to: "/admin/settings", label: "Settings", icon: Settings },
+    { to: "/admin/settings", label: "Settings", icon: SettingsIcon },
   ];
 
   return (
