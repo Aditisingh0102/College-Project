@@ -5,10 +5,10 @@ import Sidebar from '../../components/shared/Sidebar';
 import { LayoutDashboard, Users, PlaySquare, FileEdit, ClipboardList, User } from 'lucide-react';
 
 import Dashboard from './Dashboard';
-
-const MyBatches = () => <div className="p-8">My Batches Placeholder</div>;
-const UploadLecture = () => <div className="p-8">Upload Lecture Placeholder</div>;
-const CreateAssessment = () => <div className="p-8">Create Assessment Placeholder</div>;
+import MyBatches from './MyBatches';
+import UploadLecture from './UploadLecture';
+import CreateAssessment from './CreateAssessment';
+import StudentRecords from './StudentRecords';
 
 export default function FacultyLayout() {
   const navItems = [

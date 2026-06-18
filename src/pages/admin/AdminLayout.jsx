@@ -6,11 +6,13 @@ import Sidebar from '../../components/shared/Sidebar';
 import { LayoutDashboard, Building2, Users, GraduationCap, ClipboardList, Trophy, PieChart, Settings } from 'lucide-react';
 
 import Dashboard from './Dashboard';
+import ManageColleges from './ManageColleges';
 import ManageFaculty from './ManageFaculty';
+import ManageStudents from './ManageStudents';
 import ManageBatches from './ManageBatches';
-
-const ManageColleges = () => <div className="p-8">Manage Colleges Placeholder</div>;
-const ManageStudents = () => <div className="p-8">Manage Students Placeholder</div>;
+import AllContests from './AllContests';
+import Reports from './Reports';
+import Settings from './Settings';
 
 export default function AdminLayout() {
   const { currentUser } = useAppContext();
@@ -41,9 +43,9 @@ export default function AdminLayout() {
             <Route path="/faculty" element={<ManageFaculty />} />
             <Route path="/students" element={<ManageStudents />} />
             <Route path="/batches" element={<ManageBatches />} />
-            <Route path="/contests" element={<div className="p-8">All Contests Placeholder</div>} />
-            <Route path="/reports" element={<div className="p-8">Reports Placeholder</div>} />
-            <Route path="/settings" element={<div className="p-8">Settings Placeholder</div>} />
+            <Route path="/contests" element={<AllContests />} />
+            <Route path="/reports" element={<Reports />} />
+            <Route path="/settings" element={<Settings />} />
             <Route path="*" element={<Navigate to="/admin" />} />
           </Routes>
         </main>
