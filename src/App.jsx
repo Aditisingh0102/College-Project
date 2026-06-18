@@ -5,6 +5,7 @@ import RoleSelect from './pages/RoleSelect';
 import StudentLayout from './pages/student/StudentLayout';
 import FacultyLayout from './pages/faculty/FacultyLayout';
 import AdminLayout from './pages/admin/AdminLayout';
+import ToastContainer from './components/shared/ToastContainer';
 
 export default function App() {
   const { theme } = useAppContext();
@@ -19,6 +20,7 @@ export default function App() {
           <Route path="/admin/*" element={<AdminLayout />} />
           <Route path="*" element={<Navigate to="/" />} />
         </Routes>
+        <ToastContainer />
       </BrowserRouter>
     </div>
   );

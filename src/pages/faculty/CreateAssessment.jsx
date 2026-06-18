@@ -4,10 +4,14 @@ import { Calendar, Clock, BookOpen, Search, Code, Video } from 'lucide-react';
 import Badge from '../../components/shared/Badge';
 
 export default function CreateAssessment() {
-  const { currentUser, problems, lectures } = useAppContext();
+  const { currentUser, problems, lectures, addToast } = useAppContext();
   
   // Faculty specific questions based on their subjects
   const facultyQuestions = problems.filter(p => p.type === 'Coding');
+
+  const handlePublish = () => {
+    addToast("Assessment has been successfully scheduled and published!", "success");
+  };
 
   return (
     <div className="max-w-4xl mx-auto space-y-8 animate-in fade-in duration-500">
@@ -121,7 +125,7 @@ export default function CreateAssessment() {
           <button type="button" className="px-6 py-3 font-medium text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-xl transition-colors">
             Save as Draft
           </button>
-          <button type="button" className="px-8 py-3 bg-university-600 hover:bg-university-700 text-white font-medium rounded-xl shadow-lg shadow-university-600/30 transition-all">
+          <button onClick={handlePublish} type="button" className="px-8 py-3 bg-university-600 hover:bg-university-700 text-white font-medium rounded-xl shadow-lg shadow-university-600/30 transition-all">
             Schedule Contest
           </button>
         </div>

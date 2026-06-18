@@ -4,7 +4,7 @@ import { PowerOff, Search, Trophy } from 'lucide-react';
 import Badge from '../../components/shared/Badge';
 
 export default function AllContests() {
-  const { contests, faculty } = useAppContext();
+  const { contests, faculty, addToast } = useAppContext();
 
   return (
     <div className="space-y-6 animate-in fade-in duration-500">
@@ -66,7 +66,10 @@ export default function AllContests() {
                     </td>
                     <td className="px-6 py-4 text-right">
                       {contest.status !== 'Ended' && (
-                        <button className="flex items-center ml-auto px-3 py-1.5 bg-red-50 text-red-600 dark:bg-red-900/20 dark:text-red-400 hover:bg-red-100 dark:hover:bg-red-900/40 rounded-lg text-sm font-medium transition">
+                        <button 
+                          onClick={() => addToast(`Contest "${contest.title}" deactivated successfully!`, 'error')}
+                          className="flex items-center ml-auto px-3 py-1.5 bg-red-50 text-red-600 dark:bg-red-900/20 dark:text-red-400 hover:bg-red-100 dark:hover:bg-red-900/40 rounded-lg text-sm font-medium transition"
+                        >
                           <PowerOff className="w-4 h-4 mr-1" /> Deactivate
                         </button>
                       )}

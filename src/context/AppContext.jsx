@@ -24,6 +24,9 @@ export function AppProvider({ children }) {
 
   const toggleTheme = () => setTheme(prev => prev === 'light' ? 'dark' : 'light');
 
+  // Toast System State
+  const [toasts, setToasts] = useState([]);
+
   // Role and User state
   const [activeRole, setActiveRole] = useState(null); // 'student', 'faculty', 'admin', or null
   const [currentUser, setCurrentUser] = useState(null);
@@ -39,6 +42,14 @@ export function AppProvider({ children }) {
   const [submissions, setSubmissions] = useState(mockSubmissions);
 
   // Helper functions
+  const addToast = (message, type = 'success') => {
+    const id = Math.random().toString(36).substr(2, 9);
+    setToasts((prev) => [...prev, { id, message, type }]);
+    setTimeout(() => {
+      setToasts((prev) => prev.filter((t) => t.id !== id));
+    }, 3000);
+  };
+
   const loginAs = (role, userId) => {
     setActiveRole(role);
     if (role === 'student') setCurrentUser(students.find(s => s.id === userId));
@@ -53,6 +64,7 @@ export function AppProvider({ children }) {
 
   const value = {
     theme, toggleTheme,
+    toasts, addToast,
     activeRole, currentUser, loginAs, logout,
     colleges, setColleges,
     students, setStudents,

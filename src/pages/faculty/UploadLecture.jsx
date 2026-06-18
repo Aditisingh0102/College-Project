@@ -14,6 +14,7 @@ export default function UploadLecture() {
     setTimeout(() => {
       setIsUploading(false);
       setIsSuccess(true);
+      addToast("Lecture successfully published to Batch CSE-B 2024!", "success");
       setTimeout(() => setIsSuccess(false), 3000);
     }, 2000);
   };
