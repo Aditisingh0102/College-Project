@@ -33,7 +33,7 @@ export default function RoleSelect() {
             <BookOpen className="w-12 h-12 text-university-600 dark:text-university-400" />
           </div>
         </div>
-        <h1 className="text-5xl font-bold text-gray-900 dark:text-white mb-4 tracking-tight">Apex University</h1>
+        <h1 className="text-5xl font-bold text-gray-900 dark:text-white mb-4 tracking-tight">University Platform</h1>
         <p className="text-xl text-gray-500 dark:text-gray-400 font-light">Select a Persona to Demo the Platform</p>
       </div>
 

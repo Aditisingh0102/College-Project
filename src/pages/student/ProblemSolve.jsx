@@ -162,7 +162,7 @@ export default function ProblemSolve() {
             <div className="p-4 bg-yellow-500/10 border-b border-yellow-500/20 flex items-start space-x-3">
               <Sparkles className="w-5 h-5 text-yellow-500 shrink-0 mt-0.5" />
               <div>
-                <p className="text-sm font-bold text-yellow-400 mb-1">Apex AI Hint</p>
+                <p className="text-sm font-bold text-yellow-400 mb-1">Platform AI Hint</p>
                 <p className="text-sm text-yellow-200">Instead of nested loops (O(N²)), try storing numbers you've seen so far in a Hash Map. For each number, check if the complement exists in the map!</p>
               </div>
             </div>

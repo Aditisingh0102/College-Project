@@ -36,7 +36,7 @@ export default function Dashboard() {
               <div className="bg-white/10 backdrop-blur-md px-4 py-2 rounded-xl border border-white/20 flex items-center">
                 <Coins className="w-5 h-5 text-yellow-400 mr-2" />
                 <div>
-                  <p className="text-xs text-university-200 uppercase tracking-wider font-bold">Apex Coins</p>
+                  <p className="text-xs text-university-200 uppercase tracking-wider font-bold">Platform Coins</p>
                   <p className="text-xl font-bold">{currentUser.coins || 0}</p>
                 </div>
               </div>

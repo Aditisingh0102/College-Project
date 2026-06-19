@@ -32,7 +32,7 @@ export default function Navbar({ title = "Portal" }) {
     <nav className="bg-white dark:bg-gray-900 border-b border-gray-200 dark:border-gray-800 px-6 py-3 flex items-center justify-between sticky top-0 z-50 transition-colors">
       <div className="flex items-center space-x-3">
         <BookOpen className="w-8 h-8 text-university-600 dark:text-university-400" />
-        <span className="text-xl font-bold text-gray-900 dark:text-white hidden sm:block">Apex University</span>
+        <span className="text-xl font-bold text-gray-900 dark:text-white hidden sm:block">University Platform</span>
         <span className="text-gray-400 dark:text-gray-500 mx-2 hidden sm:block">|</span>
         <span className="text-lg font-medium text-gray-700 dark:text-gray-300 capitalize">{activeRole} {title}</span>
       </div>
