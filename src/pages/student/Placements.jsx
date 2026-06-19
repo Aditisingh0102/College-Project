@@ -1,11 +1,16 @@
 import React from 'react';
-import { Briefcase, Building, ChevronRight, TrendingUp, CheckCircle2, FileText, Globe } from 'lucide-react';
+import { Briefcase, Building, ChevronRight, TrendingUp, CheckCircle2, FileText, Globe, Users } from 'lucide-react';
 
 const companies = [
   { id: 1, name: "Google", role: "Software Engineer", ctc: "32 LPA", date: "Aug 15, 2026", type: "On-Campus", logo: "G" },
   { id: 2, name: "Microsoft", role: "SDE-1", ctc: "44 LPA", date: "Sep 02, 2026", type: "On-Campus", logo: "M" },
   { id: 3, name: "TCS Digital", role: "Systems Engineer", ctc: "7.5 LPA", date: "Sep 15, 2026", type: "Pool Campus", logo: "T" },
   { id: 4, name: "Amazon", role: "SDE Intern", ctc: "1.1L/m", date: "Oct 10, 2026", type: "Off-Campus", logo: "A" },
+];
+
+const alumni = [
+  { id: 1, name: "Siddharth Gupta", company: "Google", role: "L3 SWE", gradYear: "2023", avatar: "https://i.pravatar.cc/150?u=1" },
+  { id: 2, name: "Ananya Sharma", company: "Microsoft", role: "SDE-2", gradYear: "2021", avatar: "https://i.pravatar.cc/150?u=5" },
 ];
 
 export default function Placements() {
@@ -57,6 +62,30 @@ export default function Placements() {
                 </div>
               </div>
             ))}
+          </div>
+
+          {/* Alumni Mentorship Hub */}
+          <div className="pt-8">
+            <h2 className="text-xl font-bold text-gray-900 dark:text-white border-b border-gray-200 dark:border-gray-800 pb-4 mb-6 flex items-center">
+              <Users className="w-6 h-6 mr-3 text-university-600" /> Alumni Mentorship Network
+            </h2>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              {alumni.map(alum => (
+                <div key={alum.id} className="bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-3xl p-6 shadow-sm flex flex-col justify-between group hover:border-university-500 transition-colors">
+                  <div className="flex items-start space-x-4">
+                    <img src={alum.avatar} alt={alum.name} className="w-14 h-14 rounded-full border-2 border-gray-100 dark:border-gray-800" />
+                    <div>
+                      <h3 className="font-bold text-gray-900 dark:text-white text-lg">{alum.name}</h3>
+                      <p className="text-sm font-medium text-gray-600 dark:text-gray-400">{alum.role} at {alum.company}</p>
+                      <p className="text-xs text-gray-400 mt-1">Class of {alum.gradYear}</p>
+                    </div>
+                  </div>
+                  <button className="w-full mt-6 bg-gray-50 dark:bg-gray-800 hover:bg-university-50 dark:hover:bg-university-900/20 text-gray-700 dark:text-gray-300 hover:text-university-600 font-medium py-2 rounded-xl transition">
+                    Request Mock Interview
+                  </button>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
 

@@ -1,9 +1,9 @@
 import React from 'react';
 import { useAppContext } from '../../context/AppContext';
 import StatCard from '../../components/shared/StatCard';
-import { CheckCircle2, Trophy, Flame, Star, PlayCircle, Code } from 'lucide-react';
 import Badge from '../../components/shared/Badge';
 import { Link } from 'react-router-dom';
+import { Trophy, Clock, Code2, Target, ArrowRight, Flame, Coins, Zap, CheckCircle2, Star, PlayCircle, Code } from 'lucide-react';
 
 export default function Dashboard() {
   const { currentUser, contests, lectures, problems } = useAppContext();
@@ -15,21 +15,48 @@ export default function Dashboard() {
   const recommendedProblems = problems.filter(p => p.status === 'Unsolved').slice(0, 3);
 
   return (
-    <div className="space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-500">
-      {/* Welcome Banner */}
-      <div className="bg-gradient-to-r from-university-600 to-university-800 rounded-3xl p-8 text-white shadow-lg relative overflow-hidden">
-        <div className="absolute top-0 right-0 p-12 opacity-10">
-          <Trophy className="w-48 h-48" />
-        </div>
-        <div className="relative z-10 flex items-center space-x-6">
-          <img src={currentUser.photoUrl} alt="Avatar" className="w-24 h-24 rounded-full border-4 border-white/20 shadow-xl" />
-          <div>
-            <h1 className="text-3xl font-bold mb-1">Welcome back, {currentUser.name}! 👋</h1>
-            <p className="text-university-100 mb-4">{currentUser.college} • {currentUser.specialization} • {currentUser.year}</p>
-            <div className="flex space-x-3">
-              <span className="px-3 py-1 bg-white/20 backdrop-blur-sm rounded-full text-sm font-medium">Rank #{currentUser.rank}</span>
-              <span className="px-3 py-1 bg-white/20 backdrop-blur-sm rounded-full text-sm font-medium">Rating: {currentUser.rating}</span>
+    <div className="space-y-6 animate-in fade-in duration-500">
+      <div className="flex flex-col md:flex-row justify-between items-stretch gap-6">
+        {/* Welcome Banner */}
+        <div className="flex-1 bg-gradient-to-r from-university-600 to-university-800 rounded-3xl p-8 text-white shadow-lg relative overflow-hidden">
+          <div className="absolute top-0 right-0 w-64 h-64 bg-white/10 rounded-full blur-3xl -mr-20 -mt-20"></div>
+          <div className="relative z-10 flex flex-col h-full justify-between">
+            <div>
+              <h1 className="text-3xl font-bold mb-2">Welcome back, {currentUser.name}!</h1>
+              <p className="text-university-100 max-w-lg">{currentUser.college} • {currentUser.specialization} • {currentUser.year}</p>
             </div>
+            <div className="flex space-x-6 mt-8">
+              <div className="bg-white/10 backdrop-blur-md px-4 py-2 rounded-xl border border-white/20 flex items-center">
+                <Flame className="w-5 h-5 text-orange-400 mr-2" />
+                <div>
+                  <p className="text-xs text-university-200 uppercase tracking-wider font-bold">Daily Streak</p>
+                  <p className="text-xl font-bold">{currentUser.streak || 0} Days</p>
+                </div>
+              </div>
+              <div className="bg-white/10 backdrop-blur-md px-4 py-2 rounded-xl border border-white/20 flex items-center">
+                <Coins className="w-5 h-5 text-yellow-400 mr-2" />
+                <div>
+                  <p className="text-xs text-university-200 uppercase tracking-wider font-bold">Apex Coins</p>
+                  <p className="text-xl font-bold">{currentUser.coins || 0}</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Daily Challenge Widget */}
+        <div className="md:w-80 bg-white dark:bg-gray-900 border border-university-200 dark:border-gray-800 rounded-3xl p-6 shadow-sm flex flex-col justify-center items-center text-center relative overflow-hidden group hover:border-university-500 transition-colors">
+          <div className="absolute inset-0 bg-gradient-to-b from-university-50/50 to-transparent dark:from-university-900/10"></div>
+          <div className="relative z-10">
+            <div className="w-16 h-16 bg-university-100 dark:bg-university-900/50 rounded-2xl flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform">
+              <Zap className="w-8 h-8 text-university-600 dark:text-university-400" />
+            </div>
+            <Badge variant="warning" className="mb-2">Daily Challenge</Badge>
+            <h3 className="font-bold text-gray-900 dark:text-white text-lg">Two Sum IV - Input is a BST</h3>
+            <p className="text-sm text-gray-500 mt-2 mb-4">Solve to earn +50 Coins and maintain your streak!</p>
+            <button className="w-full bg-university-600 hover:bg-university-700 text-white font-medium py-2.5 rounded-xl transition-colors shadow-md">
+              Solve Now
+            </button>
           </div>
         </div>
       </div>

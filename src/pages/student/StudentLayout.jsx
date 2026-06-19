@@ -11,12 +11,14 @@ import ContestReport from './ContestReport';
 import Batches from './Batches';
 import Lectures from './Lectures';
 import Placements from './Placements';
+import Roadmaps from './Roadmaps';
 import Profile from './Profile';
-import { LayoutDashboard, Code2, Trophy, Users, PlaySquare, BarChart3, User, BookOpen, Briefcase } from 'lucide-react';
+import { LayoutDashboard, Code2, Trophy, Users, PlaySquare, User, BookOpen, Briefcase, Map } from 'lucide-react';
 
 export default function StudentLayout() {
   const navItems = [
     { to: "/student", label: "Dashboard", icon: LayoutDashboard, exact: true },
+    { to: "/student/roadmaps", label: "Roadmaps", icon: Map },
     { to: "/student/problems", label: "Problems", icon: Code2 },
     { to: "/student/contests", label: "Contests", icon: Trophy },
     { to: "/student/batches", label: "My Batches", icon: Users },
@@ -60,6 +62,7 @@ export default function StudentLayout() {
       <main className="flex-1 max-w-7xl w-full mx-auto p-4 sm:p-6 lg:p-8">
         <Routes>
           <Route path="/" element={<Dashboard />} />
+          <Route path="/roadmaps" element={<Roadmaps />} />
           <Route path="/problems" element={<Problems />} />
           <Route path="/problems/:id" element={<ProblemSolve />} />
           <Route path="/contests" element={<Contests />} />
