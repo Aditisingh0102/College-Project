@@ -33,13 +33,6 @@ export default function Dashboard() {
                   <p className="text-xl font-bold">{currentUser.streak || 0} Days</p>
                 </div>
               </div>
-              <div className="bg-white/10 backdrop-blur-md px-4 py-2 rounded-xl border border-white/20 flex items-center">
-                <Coins className="w-5 h-5 text-yellow-400 mr-2" />
-                <div>
-                  <p className="text-xs text-university-200 uppercase tracking-wider font-bold">Platform Coins</p>
-                  <p className="text-xl font-bold">{currentUser.coins || 0}</p>
-                </div>
-              </div>
             </div>
           </div>
         </div>
@@ -53,7 +46,7 @@ export default function Dashboard() {
             </div>
             <Badge variant="warning" className="mb-2">Daily Challenge</Badge>
             <h3 className="font-bold text-gray-900 dark:text-white text-lg">Two Sum IV - Input is a BST</h3>
-            <p className="text-sm text-gray-500 mt-2 mb-4">Solve to earn +50 Coins and maintain your streak!</p>
+            <p className="text-sm text-gray-500 mt-2 mb-4">Solve the daily challenge to maintain your streak!</p>
             <button className="w-full bg-university-600 hover:bg-university-700 text-white font-medium py-2.5 rounded-xl transition-colors shadow-md">
               Solve Now
             </button>

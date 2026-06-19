@@ -30,7 +30,7 @@ export default function ProblemSolve() {
   const handleSubmit = () => {
     handleRun();
     setTimeout(() => {
-      addToast("Successfully submitted! +50 Coins", "success");
+      addToast("Successfully submitted!", "success");
       navigate('/student/problems');
     }, 2000);
   };
