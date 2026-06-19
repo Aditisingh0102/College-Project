@@ -67,8 +67,6 @@ export default function Roadmaps() {
 
             {/* The Path Map */}
             <div className="relative z-10 mt-10">
-              <div className="absolute top-1/2 left-0 w-full h-1 bg-gray-200 dark:bg-gray-800 -translate-y-1/2 rounded-full hidden md:block"></div>
-              <div className="absolute top-1/2 left-0 h-1 bg-university-500 -translate-y-1/2 rounded-full hidden md:block transition-all duration-1000" style={{ width: `${roadmap.progress}%` }}></div>
 
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 relative mt-8">
                 {roadmap.modules.map((module, i) => {
