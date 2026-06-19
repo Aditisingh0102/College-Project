@@ -1,5 +1,5 @@
-import React from 'react';
-import { Map, MapPin, CheckCircle2, Lock, ChevronRight, PlayCircle, Trophy } from 'lucide-react';
+import React, { useState } from 'react';
+import { Map, MapPin, CheckCircle2, Lock, ChevronRight, PlayCircle, Trophy, X, Video, FileText, Code2 } from 'lucide-react';
 
 const roadmaps = [
   {
@@ -31,6 +31,8 @@ const roadmaps = [
 ];
 
 export default function Roadmaps() {
+  const [selectedModule, setSelectedModule] = useState(null);
+
   return (
     <div className="space-y-8 animate-in fade-in duration-500 max-w-6xl mx-auto">
       <div className="flex justify-between items-end border-b border-gray-200 dark:border-gray-800 pb-6">
@@ -114,7 +116,9 @@ export default function Roadmaps() {
                       
                       {!isLocked && (
                         <div className="mt-6 pt-4 border-t border-gray-200 dark:border-gray-800/50 relative z-10">
-                          <button className={`w-full py-2.5 rounded-xl text-sm font-bold transition-all flex items-center justify-center shadow-sm ${
+                          <button 
+                            onClick={() => setSelectedModule(module)}
+                            className={`w-full py-2.5 rounded-xl text-sm font-bold transition-all flex items-center justify-center shadow-sm ${
                             isCompleted ? 'bg-white dark:bg-gray-800 border border-green-200 dark:border-green-800 text-green-700 dark:text-green-400 hover:bg-green-50 dark:hover:bg-green-900/40' :
                             'bg-university-600 text-white hover:bg-university-700 hover:shadow-md'
                           }`}>
@@ -131,6 +135,92 @@ export default function Roadmaps() {
           </div>
         ))}
       </div>
+
+      {/* Module Dummy Content Modal */}
+      {selectedModule && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm animate-in fade-in">
+          <div className="bg-white dark:bg-gray-900 rounded-3xl w-full max-w-2xl max-h-[90vh] overflow-hidden shadow-2xl flex flex-col border border-gray-200 dark:border-gray-800">
+            <div className="p-6 border-b border-gray-200 dark:border-gray-800 flex justify-between items-center bg-gray-50 dark:bg-gray-950">
+              <div className="flex items-center space-x-4">
+                <div className="bg-university-100 dark:bg-university-900/40 p-3 rounded-xl">
+                  <selectedModule.icon className="w-6 h-6 text-university-600 dark:text-university-400" />
+                </div>
+                <div>
+                  <h3 className="text-xl font-bold text-gray-900 dark:text-white">{selectedModule.title}</h3>
+                  <p className="text-sm text-gray-500 dark:text-gray-400">{selectedModule.hours} estimated • {selectedModule.desc || 'Module overview'}</p>
+                </div>
+              </div>
+              <button 
+                onClick={() => setSelectedModule(null)}
+                className="p-2 bg-gray-200 dark:bg-gray-800 hover:bg-gray-300 dark:hover:bg-gray-700 rounded-full transition-colors"
+              >
+                <X className="w-5 h-5 text-gray-700 dark:text-gray-300" />
+              </button>
+            </div>
+            
+            <div className="p-6 overflow-y-auto space-y-8 flex-1">
+              
+              <div>
+                <h4 className="text-sm font-bold uppercase tracking-wider text-gray-500 mb-4 flex items-center">
+                  <Video className="w-4 h-4 mr-2" /> Video Lectures
+                </h4>
+                <div className="space-y-3">
+                  {[1, 2, 3].map(i => (
+                    <div key={i} className="flex items-center p-3 rounded-xl border border-gray-100 dark:border-gray-800 hover:bg-gray-50 dark:hover:bg-gray-800/50 transition cursor-pointer group">
+                      <div className="w-10 h-10 bg-university-50 dark:bg-university-900/20 text-university-600 dark:text-university-400 rounded-lg flex items-center justify-center mr-4 group-hover:bg-university-600 group-hover:text-white transition-colors">
+                        <PlayCircle className="w-5 h-5" />
+                      </div>
+                      <div className="flex-1">
+                        <p className="font-bold text-gray-900 dark:text-gray-100 text-sm">Deep Dive: Topic {i} of {selectedModule.title}</p>
+                        <p className="text-xs text-gray-500">45 mins • Prof. Alumni Network</p>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              <div>
+                <h4 className="text-sm font-bold uppercase tracking-wider text-gray-500 mb-4 flex items-center">
+                  <FileText className="w-4 h-4 mr-2" /> Reading Materials
+                </h4>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  {[1, 2].map(i => (
+                    <div key={i} className="p-4 rounded-xl border border-gray-100 dark:border-gray-800 bg-gray-50 dark:bg-gray-900 hover:border-university-300 transition cursor-pointer">
+                      <FileText className="w-5 h-5 text-blue-500 mb-2" />
+                      <p className="font-bold text-sm text-gray-900 dark:text-gray-100 mb-1">Cheatsheet & Notes {i}</p>
+                      <p className="text-xs text-gray-500">10 min read</p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              <div>
+                <h4 className="text-sm font-bold uppercase tracking-wider text-gray-500 mb-4 flex items-center">
+                  <Code2 className="w-4 h-4 mr-2" /> Practice Problems
+                </h4>
+                <div className="space-y-2">
+                  {['Easy', 'Medium', 'Hard'].map((diff, i) => (
+                    <div key={i} className="flex items-center justify-between p-3 rounded-xl border border-gray-100 dark:border-gray-800 bg-white dark:bg-black hover:shadow-sm transition cursor-pointer">
+                      <div className="flex items-center">
+                        <CheckCircle2 className={`w-4 h-4 mr-3 ${i === 0 ? 'text-green-500' : 'text-gray-300 dark:text-gray-700'}`} />
+                        <span className="font-medium text-sm text-gray-800 dark:text-gray-200">Standard Interview Problem {i + 1}</span>
+                      </div>
+                      <span className={`text-xs px-2 py-1 rounded font-bold ${
+                        diff === 'Easy' ? 'bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400' :
+                        diff === 'Medium' ? 'bg-yellow-100 text-yellow-700 dark:bg-yellow-900/30 dark:text-yellow-400' :
+                        'bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-400'
+                      }`}>
+                        {diff}
+                      </span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
