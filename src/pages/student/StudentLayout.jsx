@@ -11,7 +11,6 @@ import ContestReport from './ContestReport';
 import Batches from './Batches';
 import Lectures from './Lectures';
 import Placements from './Placements';
-import Leaderboard from './Leaderboard';
 import Profile from './Profile';
 import { LayoutDashboard, Code2, Trophy, Users, PlaySquare, BarChart3, User, BookOpen, Briefcase } from 'lucide-react';
 
@@ -23,7 +22,6 @@ export default function StudentLayout() {
     { to: "/student/batches", label: "My Batches", icon: Users },
     { to: "/student/lectures", label: "Lectures", icon: BookOpen },
     { to: "/student/placements", label: "Placements", icon: Briefcase },
-    { to: "/student/leaderboard", label: "Leaderboard", icon: BarChart3 },
     { to: "/student/profile", label: "Profile", icon: User },
   ];
 
@@ -71,7 +69,6 @@ export default function StudentLayout() {
           <Route path="/batches" element={<Batches />} />
           <Route path="/lectures" element={<Lectures />} />
           <Route path="/placements" element={<Placements />} />
-          <Route path="/leaderboard" element={<Leaderboard />} />
           <Route path="/profile" element={<Profile />} />
           <Route path="*" element={<Navigate to="/student" />} />
         </Routes>
