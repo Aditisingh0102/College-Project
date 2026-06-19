@@ -3,15 +3,17 @@ import { useAppContext } from '../../context/AppContext';
 import { PlayCircle } from 'lucide-react';
 
 export default function Lectures() {
-  const { lectures, faculty } = useAppContext();
+  const { lectures, faculty, currentUser } = useAppContext();
+
+  const myLectures = lectures.filter(lecture => currentUser?.enrolledBatches?.includes(lecture.batchId));
 
   return (
     <div className="space-y-6 animate-in fade-in duration-500">
       <h1 className="text-2xl font-bold text-gray-900 dark:text-white">Recorded Lectures</h1>
       
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {lectures.map(lecture => {
-          const fac = faculty.find(f => f.id === lecture.facultyId);
+        {myLectures.map(lecture => {
+          const fac = faculty.find(f => f.id === lecture.facultyId) || { name: lecture.facultyName, photoUrl: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150" };
           return (
             <div key={lecture.id} className="group bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-2xl overflow-hidden hover:shadow-xl transition-all cursor-pointer flex flex-col">
               <div className="relative aspect-video bg-gray-100 dark:bg-gray-800">

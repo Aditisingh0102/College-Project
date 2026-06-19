@@ -18,15 +18,22 @@ export default function Contests() {
   const navigate = useNavigate();
 
   // Re-evaluate statuses based on current time
-  const evaluatedContests = contests.map(c => {
-    const startTime = new Date(c.scheduledStartTime);
-    const endTime = new Date(c.scheduledEndTime);
-    let currentStatus = 'Scheduled';
-    if (now >= startTime && now <= endTime) currentStatus = 'Live';
-    else if (now > endTime) currentStatus = 'Ended';
+  const evaluatedContests = contests
+    .filter(c => {
+      if (c.targetBatches && c.targetBatches.length > 0) {
+        return c.targetBatches.some(b => currentUser?.enrolledBatches?.includes(b));
+      }
+      return true; // Fallback for legacy mock data without targetBatches
+    })
+    .map(c => {
+      const startTime = new Date(c.scheduledStartTime || c.startTime); // Handle both old and new mock fields
+      const endTime = new Date(c.scheduledEndTime || c.endTime);
+      let currentStatus = 'Scheduled';
+      if (now >= startTime && now <= endTime) currentStatus = 'Live';
+      else if (now > endTime) currentStatus = 'Ended';
 
-    return { ...c, currentStatus, startTimeObj: startTime, endTimeObj: endTime };
-  });
+      return { ...c, currentStatus, startTimeObj: startTime, endTimeObj: endTime };
+    });
 
   const filteredContests = evaluatedContests.filter(c => c.currentStatus === activeTab);
 

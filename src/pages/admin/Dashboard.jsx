@@ -1,16 +1,8 @@
 import React from 'react';
 import { useAppContext } from '../../context/AppContext';
 import StatCard from '../../components/shared/StatCard';
-import { Users, GraduationCap, Building2, Trophy, ArrowRight, PieChart, Briefcase, TrendingUp, Globe } from 'lucide-react';
+import { Users, GraduationCap, Building2, Trophy, ArrowRight, PieChart, Briefcase, TrendingUp, Globe, FileVideo, Code2 } from 'lucide-react';
 import { LineChart, Line, BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
-
-// Shared Mock Data
-const recentActivity = [
-  { id: 1, text: "Dr. Vikram Singh published a new Contest", time: "2 hours ago" },
-  { id: 2, text: "Batch CSE-B 2024 achieved 85% average score", time: "5 hours ago" },
-  { id: 3, text: "New College (Law) onboarded", time: "1 day ago" },
-  { id: 4, text: "Microsoft Campus Drive scheduled", time: "2 days ago" },
-];
 
 // VC Specific Mock Data
 const placementTrend = [
@@ -29,8 +21,25 @@ const deptPerformance = [
 ];
 
 export default function Dashboard() {
-  const { currentUser } = useAppContext();
+  const { currentUser, colleges, students, faculty, contests, lectures } = useAppContext();
   const isVC = currentUser?.roleLevel === 'VC';
+  const isDean = currentUser?.roleLevel === 'Dean';
+  const isHOD = currentUser?.roleLevel === 'HOD';
+
+  // Dynamic Filtering Based on Role
+  const filteredStudents = isVC ? students : students.filter(s => s.college === currentUser.managedCollege && (isHOD ? s.branch === currentUser.managedBranch : true));
+  const filteredFaculty = isVC ? faculty : faculty.filter(f => f.college === currentUser.managedCollege && (isHOD ? f.branch === currentUser.managedBranch : true));
+  const filteredContests = isVC ? contests : contests.filter(c => c.college === currentUser.managedCollege && (isHOD ? c.branch === currentUser.managedBranch : true));
+  const filteredLectures = isVC ? lectures : lectures.filter(l => l.college === currentUser.managedCollege && (isHOD ? l.branch === currentUser.managedBranch : true));
+
+  // Build Dynamic Activity Feed
+  const rawActivities = [
+    ...filteredContests.map(c => ({ id: `c-${c.id}`, type: 'contest', text: `${c.facultyName} published a new Contest: ${c.title}`, date: c.id > 10 ? new Date() : new Date(Date.now() - 7200000) })), // if mock id > 10 it's newly created
+    ...filteredLectures.map(l => ({ id: `l-${l.id}`, type: 'lecture', text: `${l.facultyName} uploaded a new Lecture: ${l.title}`, date: l.id > 10 ? new Date() : new Date(Date.now() - 86400000) }))
+  ];
+  
+  // Sort activities by date descending
+  const recentActivity = rawActivities.sort((a,b) => b.date - a.date).slice(0, 5);
 
   return (
     <div className="space-y-6 animate-in fade-in duration-500">
@@ -39,7 +48,7 @@ export default function Dashboard() {
           <h1 className="text-3xl font-bold mb-2">Welcome back, {currentUser?.name}</h1>
           <p className="text-university-100 flex items-center">
             {isVC ? <Globe className="w-5 h-5 mr-2" /> : <Building2 className="w-5 h-5 mr-2" />}
-            {isVC ? "University-Wide Global Executive Dashboard" : `${currentUser?.managedCollege} Dean Dashboard`}
+            {isVC ? "University-Wide Global Executive Dashboard" : isDean ? `${currentUser?.managedCollege} Dean Dashboard` : `${currentUser?.managedBranch} HOD Dashboard`}
           </p>
         </div>
         <div className="hidden md:block">
@@ -51,10 +60,11 @@ export default function Dashboard() {
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-        <StatCard title={isVC ? "Total Colleges" : "Total Departments"} value={isVC ? "5" : "4"} icon={Building2} trend="+1 this year" />
-        <StatCard title="Total Students" value={isVC ? "12,450" : "3,200"} icon={Users} trend="+12% vs last year" />
-        <StatCard title="Total Faculty" value={isVC ? "840" : "150"} icon={GraduationCap} />
-        <StatCard title="Active Contests" value="24" icon={Trophy} trend="Live now" />
+        {isVC && <StatCard title="Total Colleges" value={colleges.length.toString()} icon={Building2} trend="Active" />}
+        {!isVC && <StatCard title="Department/Branch" value={isDean ? "All Branches" : currentUser.managedBranch} icon={Building2} />}
+        <StatCard title="Total Students" value={filteredStudents.length.toString()} icon={Users} trend="Live count" />
+        <StatCard title="Total Faculty" value={filteredFaculty.length.toString()} icon={GraduationCap} />
+        <StatCard title="Active Contests" value={filteredContests.length.toString()} icon={Trophy} trend="Running now" />
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
@@ -107,8 +117,11 @@ export default function Dashboard() {
                 {i !== recentActivity.length - 1 && <div className="absolute top-8 bottom-0 left-2 w-0.5 bg-gray-100 dark:bg-gray-800"></div>}
                 <div className="w-4 h-4 mt-1 rounded-full bg-university-100 dark:bg-university-900 border-2 border-university-500 z-10 shrink-0"></div>
                 <div className="ml-4">
-                  <p className="text-sm font-medium text-gray-900 dark:text-white">{activity.text}</p>
-                  <p className="text-xs text-gray-500 mt-1">{activity.time}</p>
+                  <p className="text-sm font-medium text-gray-900 dark:text-white flex items-center">
+                    {activity.type === 'contest' ? <Code2 className="w-4 h-4 mr-2 text-university-500" /> : <FileVideo className="w-4 h-4 mr-2 text-university-500" />}
+                    {activity.text}
+                  </p>
+                  <p className="text-xs text-gray-500 mt-1">{activity.date.toLocaleDateString()} {activity.date.toLocaleTimeString()}</p>
                 </div>
               </div>
             ))}

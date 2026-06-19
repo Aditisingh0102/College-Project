@@ -4,9 +4,12 @@ import { UploadCloud, Video, CheckCircle2 } from 'lucide-react';
 import Badge from '../../components/shared/Badge';
 
 export default function UploadLecture() {
-  const { currentUser, lectures } = useAppContext();
+  const { currentUser, lectures, setLectures, addToast } = useAppContext();
   const [isUploading, setIsUploading] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
+  const [title, setTitle] = useState('');
+  const [subject, setSubject] = useState(currentUser?.subjectsTaught?.[0] || '');
+  const [targetBatch, setTargetBatch] = useState(currentUser?.assignedBatches?.[0] || '');
 
   const handleUpload = (e) => {
     e.preventDefault();
@@ -14,8 +17,25 @@ export default function UploadLecture() {
     setTimeout(() => {
       setIsUploading(false);
       setIsSuccess(true);
-      addToast("Lecture successfully published to Batch CSE-B 2024!", "success");
+      
+      const newLecture = {
+        id: Math.random() * 1000,
+        title: title || 'New Lecture',
+        subject: subject,
+        facultyId: currentUser.id,
+        facultyName: currentUser.name,
+        branch: currentUser.branch,
+        college: currentUser.college,
+        batchId: targetBatch,
+        durationMins: 45,
+        views: 0,
+        thumbnailUrl: "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=500&auto=format&fit=crop&q=60"
+      };
+      setLectures(prev => [newLecture, ...prev]);
+      
+      addToast(`Lecture successfully published to Batch ${targetBatch}!`, "success");
       setTimeout(() => setIsSuccess(false), 3000);
+      setTitle('');
     }, 2000);
   };
 
@@ -33,17 +53,17 @@ export default function UploadLecture() {
           <div className="space-y-4">
             <div>
               <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Video Title</label>
-              <input required type="text" placeholder="e.g., Introduction to Dynamic Programming" className="w-full px-4 py-3 bg-gray-50 dark:bg-gray-950 border border-gray-200 dark:border-gray-800 rounded-xl focus:ring-2 focus:ring-university-500 outline-none text-gray-900 dark:text-white" />
+              <input required value={title} onChange={e=>setTitle(e.target.value)} type="text" placeholder="e.g., Introduction to Dynamic Programming" className="w-full px-4 py-3 bg-gray-50 dark:bg-gray-950 border border-gray-200 dark:border-gray-800 rounded-xl focus:ring-2 focus:ring-university-500 outline-none text-gray-900 dark:text-white" />
             </div>
             <div>
               <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Subject Mapping</label>
-              <select required className="w-full px-4 py-3 bg-gray-50 dark:bg-gray-950 border border-gray-200 dark:border-gray-800 rounded-xl focus:ring-2 focus:ring-university-500 outline-none text-gray-900 dark:text-white">
+              <select required value={subject} onChange={e=>setSubject(e.target.value)} className="w-full px-4 py-3 bg-gray-50 dark:bg-gray-950 border border-gray-200 dark:border-gray-800 rounded-xl focus:ring-2 focus:ring-university-500 outline-none text-gray-900 dark:text-white">
                 {currentUser?.subjectsTaught?.map(sub => <option key={sub} value={sub}>{sub}</option>)}
               </select>
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Target Batch(es)</label>
-              <select multiple required className="w-full px-4 py-3 bg-gray-50 dark:bg-gray-950 border border-gray-200 dark:border-gray-800 rounded-xl focus:ring-2 focus:ring-university-500 outline-none text-gray-900 dark:text-white h-24">
+              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Target Batch</label>
+              <select required value={targetBatch} onChange={e=>setTargetBatch(e.target.value)} className="w-full px-4 py-3 bg-gray-50 dark:bg-gray-950 border border-gray-200 dark:border-gray-800 rounded-xl focus:ring-2 focus:ring-university-500 outline-none text-gray-900 dark:text-white">
                 {currentUser?.assignedBatches?.map(b => <option key={b} value={b}>Batch {b}</option>)}
               </select>
             </div>

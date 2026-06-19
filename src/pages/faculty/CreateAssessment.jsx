@@ -4,13 +4,35 @@ import { Calendar, Clock, BookOpen, Search, Code, Video } from 'lucide-react';
 import Badge from '../../components/shared/Badge';
 
 export default function CreateAssessment() {
-  const { currentUser, problems, lectures, addToast } = useAppContext();
+  const { currentUser, problems, lectures, contests, setContests, addToast } = useAppContext();
+  const [title, setTitle] = useState('');
+  const [targetBatch, setTargetBatch] = useState(currentUser?.assignedBatches?.[0] || '');
   
   // Faculty specific questions based on their subjects
   const facultyQuestions = problems.filter(p => p.type === 'Coding');
 
   const handlePublish = () => {
+    if (!title) {
+      addToast("Please enter a title", "error");
+      return;
+    }
+    const newContest = {
+      id: Math.random() * 1000,
+      title: title,
+      facultyId: currentUser.id,
+      facultyName: currentUser.name,
+      branch: currentUser.branch,
+      college: currentUser.college,
+      targetBatches: [targetBatch],
+      startTime: "2026-06-25T10:00:00Z",
+      endTime: "2026-06-25T13:00:00Z",
+      status: "Upcoming",
+      participants: 0,
+      problems: [problems[0].id]
+    };
+    setContests(prev => [newContest, ...prev]);
     addToast("Assessment has been successfully scheduled and published!", "success");
+    setTitle('');
   };
 
   return (
@@ -27,7 +49,7 @@ export default function CreateAssessment() {
           
           <div>
             <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Contest Title</label>
-            <input type="text" placeholder="e.g., DSA Mid-Term Coding Challenge" className="w-full px-4 py-3 bg-gray-50 dark:bg-gray-950 border border-gray-200 dark:border-gray-800 rounded-xl focus:ring-2 focus:ring-university-500 outline-none text-gray-900 dark:text-white" />
+            <input value={title} onChange={e=>setTitle(e.target.value)} type="text" placeholder="e.g., DSA Mid-Term Coding Challenge" className="w-full px-4 py-3 bg-gray-50 dark:bg-gray-950 border border-gray-200 dark:border-gray-800 rounded-xl focus:ring-2 focus:ring-university-500 outline-none text-gray-900 dark:text-white" />
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -41,7 +63,7 @@ export default function CreateAssessment() {
             </div>
             <div>
               <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Target Batches</label>
-              <select multiple className="w-full px-4 py-3 bg-gray-50 dark:bg-gray-950 border border-gray-200 dark:border-gray-800 rounded-xl focus:ring-2 focus:ring-university-500 outline-none text-gray-900 dark:text-white h-24">
+              <select value={targetBatch} onChange={e=>setTargetBatch(e.target.value)} className="w-full px-4 py-3 bg-gray-50 dark:bg-gray-950 border border-gray-200 dark:border-gray-800 rounded-xl focus:ring-2 focus:ring-university-500 outline-none text-gray-900 dark:text-white">
                 {currentUser?.assignedBatches?.map(b => (
                   <option key={b} value={b}>Batch {b}</option>
                 ))}
