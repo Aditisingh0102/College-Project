@@ -28,13 +28,13 @@ export default function RoleSelect() {
       </button>
 
       <div className="text-center mb-12">
-        <div className="flex justify-center mb-6">
-          <div className="p-4 bg-university-100 dark:bg-university-900/30 rounded-2xl">
-            <BookOpen className="w-12 h-12 text-university-600 dark:text-university-400" />
+        <div className="flex justify-center mb-6 relative">
+          <div className="absolute inset-0 bg-university-500/20 blur-3xl rounded-full"></div>
+          <div className="w-20 h-20 bg-university-600 rounded-2xl flex items-center justify-center relative z-10 shadow-xl shadow-university-900/50">
+            <BookOpen className="w-10 h-10 text-white" />
           </div>
         </div>
-        <h1 className="text-5xl font-bold text-gray-900 dark:text-white mb-4 tracking-tight">University Platform</h1>
-        <p className="text-xl text-gray-500 dark:text-gray-400 font-light">Select a Persona to Demo the Platform</p>
+        <h1 className="text-4xl md:text-5xl font-extrabold text-white mb-4 tracking-tight">University Platform</h1>
       </div>
 
       <div className="max-w-6xl w-full px-6 space-y-8">
