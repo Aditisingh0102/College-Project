@@ -27,9 +27,30 @@ export function AppProvider({ children }) {
   // Toast System State
   const [toasts, setToasts] = useState([]);
 
-  // Role and User state
-  const [activeRole, setActiveRole] = useState(null); // 'student', 'faculty', 'admin', or null
-  const [currentUser, setCurrentUser] = useState(null);
+  // Role and User state with localStorage persistence
+  const [activeRole, setActiveRole] = useState(() => {
+    const saved = localStorage.getItem('activeRole');
+    if (saved) return saved;
+    // Auto-login as student if no role is set
+    localStorage.setItem('activeRole', 'student');
+    return 'student';
+  });
+  
+  const [currentUser, setCurrentUser] = useState(() => {
+    const savedUserId = localStorage.getItem('currentUserId');
+    const role = localStorage.getItem('activeRole') || 'student';
+    
+    if (savedUserId && role) {
+      if (role === 'student') return mockStudents.find(s => s.id === savedUserId) || mockStudents[0];
+      if (role === 'faculty') return mockFaculty.find(f => f.id === savedUserId) || null;
+      if (role === 'admin') return mockAdmins.find(a => a.id === savedUserId) || null;
+    }
+    
+    // Auto-login fallback
+    const defaultStudent = mockStudents[0];
+    localStorage.setItem('currentUserId', defaultStudent.id);
+    return defaultStudent;
+  });
 
   // Mock data state
   const [colleges, setColleges] = useState(mockColleges);
@@ -52,6 +73,8 @@ export function AppProvider({ children }) {
 
   const loginAs = (role, userId) => {
     setActiveRole(role);
+    localStorage.setItem('activeRole', role);
+    localStorage.setItem('currentUserId', userId);
     if (role === 'student') setCurrentUser(students.find(s => s.id === userId));
     else if (role === 'faculty') setCurrentUser(faculty.find(f => f.id === userId));
     else if (role === 'admin') setCurrentUser(admins.find(a => a.id === userId));
@@ -60,6 +83,8 @@ export function AppProvider({ children }) {
   const logout = () => {
     setActiveRole(null);
     setCurrentUser(null);
+    localStorage.removeItem('activeRole');
+    localStorage.removeItem('currentUserId');
   };
 
   const value = {

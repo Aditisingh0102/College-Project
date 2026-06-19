@@ -34,7 +34,7 @@ export default function RoleSelect() {
             <BookOpen className="w-10 h-10 text-white" />
           </div>
         </div>
-        <h1 className="text-4xl md:text-5xl font-extrabold text-white mb-4 tracking-tight">University Platform</h1>
+        <h1 className="text-4xl md:text-5xl font-extrabold text-gray-900 dark:text-white mb-4 tracking-tight">University Platform</h1>
       </div>
 
       <div className="max-w-6xl w-full px-6 space-y-8">

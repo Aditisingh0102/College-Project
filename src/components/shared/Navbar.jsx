@@ -85,23 +85,12 @@ export default function Navbar({ title = "Portal" }) {
 
           {showProfileMenu && (
             <div className="absolute right-0 mt-2 w-56 bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-xl shadow-lg py-2 overflow-hidden">
-              <div className="px-4 py-2 border-b border-gray-100 dark:border-gray-800 mb-1">
-                <p className="text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider">Switch Portal</p>
-              </div>
-              <button onClick={() => handleSwitchRole('student')} className="w-full text-left px-4 py-2 text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-800 flex items-center">
-                Student Portal
+              <button onClick={() => { navigate('/student/profile'); setShowProfileMenu(false); }} className="w-full text-left px-4 py-2 text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-800 flex items-center">
+                My Profile
               </button>
-              <button onClick={() => handleSwitchRole('faculty')} className="w-full text-left px-4 py-2 text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-800 flex items-center">
-                Faculty Portal
+              <button onClick={() => setShowProfileMenu(false)} className="w-full text-left px-4 py-2 text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-800 flex items-center">
+                Account Settings
               </button>
-              <button onClick={() => handleSwitchRole('admin')} className="w-full text-left px-4 py-2 text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-800 flex items-center">
-                Admin Portal
-              </button>
-              <div className="border-t border-gray-100 dark:border-gray-800 mt-1 pt-1">
-                <button onClick={handleLogout} className="w-full text-left px-4 py-2 text-sm text-red-600 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-900/20 flex items-center">
-                  <LogOut className="w-4 h-4 mr-2" /> Logout
-                </button>
-              </div>
             </div>
           )}
         </div>
