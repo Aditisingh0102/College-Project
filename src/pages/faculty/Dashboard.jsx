@@ -51,10 +51,10 @@ export default function Dashboard() {
 
 
 
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+      <div className="grid grid-cols-1 gap-8">
         
         {/* Active Batches Overview */}
-        <div className="lg:col-span-2 space-y-4">
+        <div className="space-y-4">
           <div className="flex items-center justify-between">
             <h2 className="text-xl font-bold text-gray-900 dark:text-white">Active Batches</h2>
             <Link to="/faculty/batches" className="text-sm text-teal-600 dark:text-teal-400 hover:underline font-medium">View All Batches</Link>
@@ -81,39 +81,7 @@ export default function Dashboard() {
               </div>
             ))}
             
-            {/* Create New Batch Card */}
-            <div className="bg-gray-50 dark:bg-gray-800/50 border border-dashed border-gray-300 dark:border-gray-700 rounded-2xl p-5 flex flex-col items-center justify-center text-center hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors cursor-pointer min-h-[200px]">
-              <div className="w-12 h-12 bg-white dark:bg-gray-700 rounded-full flex items-center justify-center shadow-sm mb-3">
-                <Users className="w-6 h-6 text-gray-400" />
-              </div>
-              <h3 className="font-bold text-gray-900 dark:text-white">Create New Batch</h3>
-              <p className="text-xs text-gray-500 dark:text-gray-400 mt-1 max-w-[200px]">Set up a new classroom and invite students.</p>
-            </div>
           </div>
-        </div>
-
-        {/* To-Do / Action Items */}
-        <div className="space-y-4">
-          <h2 className="text-xl font-bold text-gray-900 dark:text-white">Action Items</h2>
-          <div className="bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-2xl p-2">
-            {actionItems.map((item, i) => (
-              <div key={item.id} className={`flex items-start p-4 ${i !== actionItems.length - 1 ? 'border-b border-gray-100 dark:border-gray-800' : ''} hover:bg-gray-50 dark:hover:bg-gray-800/50 rounded-xl transition-colors cursor-pointer`}>
-                <div className="mt-0.5 mr-4">
-                  {item.type === 'urgent' && <AlertCircle className="w-5 h-5 text-red-500" />}
-                  {item.type === 'warning' && <AlertCircle className="w-5 h-5 text-amber-500" />}
-                  {item.type === 'info' && <CheckCircle2 className="w-5 h-5 text-blue-500" />}
-                </div>
-                <div>
-                  <p className="text-sm font-medium text-gray-900 dark:text-white leading-snug">{item.text}</p>
-                  <p className="text-xs text-gray-500 dark:text-gray-400 mt-1.5">{item.time}</p>
-                </div>
-              </div>
-            ))}
-          </div>
-          
-          <button className="w-full py-3 bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 text-gray-700 dark:text-gray-300 font-bold rounded-xl transition-colors text-sm">
-            View All Tasks
-          </button>
         </div>
 
       </div>
