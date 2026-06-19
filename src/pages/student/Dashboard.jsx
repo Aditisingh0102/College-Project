@@ -57,9 +57,9 @@ export default function Dashboard() {
             <Badge variant="warning" className="mb-2">Daily Challenge</Badge>
             <h3 className="font-bold text-gray-900 dark:text-white text-lg">Two Sum IV - Input is a BST</h3>
             <p className="text-sm text-gray-500 mt-2 mb-4">Solve the daily challenge to maintain your streak!</p>
-            <button className="w-full bg-university-600 hover:bg-university-700 text-white font-medium py-2.5 rounded-xl transition-colors shadow-md">
+            <Link to="/student/problems/1" className="w-full bg-university-600 hover:bg-university-700 text-white font-medium py-2.5 rounded-xl transition-colors shadow-md block text-center">
               Solve Now
-            </button>
+            </Link>
           </div>
         </div>
       </div>
@@ -143,7 +143,7 @@ export default function Dashboard() {
             <Link to="/student/lectures" className="text-sm text-university-600 dark:text-university-400 hover:underline">All Lectures</Link>
           </div>
           {recentLectures.map(lecture => (
-            <div key={lecture.id} className="group bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-2xl overflow-hidden hover:shadow-lg transition-all cursor-pointer">
+            <Link to="/student/lectures" key={lecture.id} className="group bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-2xl overflow-hidden hover:shadow-lg transition-all cursor-pointer block">
               <div className="relative aspect-video bg-gray-100 dark:bg-gray-800">
                 <img src={lecture.thumbnailUrl} alt={lecture.title} className="w-full h-full object-cover" />
                 <div className="absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
@@ -157,7 +157,7 @@ export default function Dashboard() {
                 <h3 className="font-semibold text-gray-900 dark:text-white line-clamp-1">{lecture.title}</h3>
                 <p className="text-sm text-gray-500 dark:text-gray-400 mt-1">{lecture.subject}</p>
               </div>
-            </div>
+            </Link>
           ))}
         </div>
       </div>
