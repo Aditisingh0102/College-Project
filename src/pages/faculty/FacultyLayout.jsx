@@ -2,20 +2,26 @@ import React from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
 import Navbar from '../../components/shared/Navbar';
 import Sidebar from '../../components/shared/Sidebar';
-import { LayoutDashboard, Users, PlaySquare, FileEdit, ClipboardList, User } from 'lucide-react';
-
 import Dashboard from './Dashboard';
 import MyBatches from './MyBatches';
 import UploadLecture from './UploadLecture';
 import CreateAssessment from './CreateAssessment';
 import StudentRecords from './StudentRecords';
+import Proctoring from './Proctoring';
+import QuestionLab from './QuestionLab';
+import Inbox from './Inbox';
+import Profile from '../student/Profile';
+import { LayoutDashboard, Users, PlaySquare, FileText, ClipboardList, User, ShieldAlert, Beaker, Inbox as InboxIcon } from 'lucide-react';
 
 export default function FacultyLayout() {
   const navItems = [
     { to: "/faculty", label: "Dashboard", icon: LayoutDashboard, exact: true },
     { to: "/faculty/batches", label: "My Batches", icon: Users },
     { to: "/faculty/upload-lecture", label: "Upload Lecture", icon: PlaySquare },
-    { to: "/faculty/create-assessment", label: "Create Assessment", icon: FileEdit },
+    { to: "/faculty/inbox", label: "Inbox", icon: InboxIcon },
+    { to: "/faculty/proctoring", label: "Proctoring", icon: ShieldAlert },
+    { to: "/faculty/question-lab", label: "Question Lab", icon: Beaker },
+    { to: "/faculty/assessments", label: "Assessments", icon: FileText },
     { to: "/faculty/records", label: "Student Records", icon: ClipboardList },
     { to: "/faculty/profile", label: "Profile", icon: User },
   ];
@@ -30,9 +36,12 @@ export default function FacultyLayout() {
             <Route path="/" element={<Dashboard />} />
             <Route path="/batches" element={<MyBatches />} />
             <Route path="/upload-lecture" element={<UploadLecture />} />
-            <Route path="/create-assessment" element={<CreateAssessment />} />
-            <Route path="/records" element={<div className="p-8">Student Records Placeholder</div>} />
-            <Route path="/profile" element={<div className="p-8">Profile Placeholder</div>} />
+            <Route path="/assessments" element={<CreateAssessment />} />
+            <Route path="/records" element={<StudentRecords />} />
+            <Route path="/proctoring" element={<Proctoring />} />
+            <Route path="/question-lab" element={<QuestionLab />} />
+            <Route path="/inbox" element={<Inbox />} />
+            <Route path="/profile" element={<Profile />} />
             <Route path="*" element={<Navigate to="/faculty" />} />
           </Routes>
         </main>
