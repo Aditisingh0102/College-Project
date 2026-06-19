@@ -1,7 +1,7 @@
 import React from 'react';
 import { useAppContext } from '../../context/AppContext';
 import StatCard from '../../components/shared/StatCard';
-import { Users, GraduationCap, Building2, Trophy, ArrowRight, PieChart, Briefcase, TrendingUp, Globe, FileVideo, Code2 } from 'lucide-react';
+import { Users, GraduationCap, Building2, Trophy, ArrowRight, PieChart, Briefcase, TrendingUp, Globe, FileVideo, Code2, Sparkles, AlertCircle } from 'lucide-react';
 import { LineChart, Line, BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
 
 // VC Specific Mock Data
@@ -76,7 +76,7 @@ export default function Dashboard() {
               <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-6 flex items-center">
                 <Briefcase className="w-5 h-5 mr-2 text-university-600" /> Global Placement Trajectory
               </h3>
-              <div className="h-64">
+              <div className="h-48 mb-6">
                 <ResponsiveContainer width="100%" height="100%">
                   <LineChart data={placementTrend}>
                     <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#374151" />
@@ -86,6 +86,30 @@ export default function Dashboard() {
                     <Line type="monotone" dataKey="placed" stroke="#10b981" strokeWidth={4} dot={{r: 5}} />
                   </LineChart>
                 </ResponsiveContainer>
+              </div>
+
+              {/* AI Predictive Budgeting Widget */}
+              <div className="bg-gradient-to-r from-indigo-50 to-blue-50 dark:from-indigo-950/30 dark:to-blue-900/20 border-2 border-indigo-100 dark:border-indigo-800/50 rounded-2xl p-5 relative overflow-hidden">
+                <div className="absolute top-0 right-0 p-4 opacity-20">
+                  <Sparkles className="w-24 h-24 text-indigo-500" />
+                </div>
+                <div className="relative z-10">
+                  <h4 className="text-indigo-800 dark:text-indigo-300 font-bold flex items-center mb-3">
+                    <Sparkles className="w-5 h-5 mr-2" /> AI Predictive Budget Allocation
+                  </h4>
+                  <div className="bg-white/60 dark:bg-black/20 backdrop-blur-sm p-4 rounded-xl border border-indigo-200 dark:border-indigo-800/50 text-sm text-gray-800 dark:text-gray-300 space-y-3">
+                    <p><strong>Analysis:</strong> The Computer Science department shows 85% engagement in coding contests, while Civil Engineering engagement is at 20%.</p>
+                    <div className="flex items-start bg-indigo-100/50 dark:bg-indigo-900/40 p-3 rounded-lg border border-indigo-200 dark:border-indigo-700/50">
+                      <AlertCircle className="w-5 h-5 text-indigo-600 dark:text-indigo-400 mr-2 shrink-0 mt-0.5" />
+                      <p className="font-medium text-indigo-900 dark:text-indigo-200">Recommendation: Shift 5% of the Civil lab equipment budget ($45,000) to the CS Cloud-Hosting fund to proactively support scaling server infrastructure for high student engagement.</p>
+                    </div>
+                    <div className="flex justify-end pt-2">
+                      <button className="px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white font-medium rounded-lg text-xs shadow-md transition">
+                        Approve Budget Reallocation
+                      </button>
+                    </div>
+                  </div>
+                </div>
               </div>
             </>
           ) : (

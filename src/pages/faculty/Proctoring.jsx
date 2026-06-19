@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { ShieldAlert, AlertTriangle, CheckCircle2, Search, Eye, Filter, MonitorOff, Copy, FileWarning } from 'lucide-react';
+import { ShieldAlert, AlertTriangle, CheckCircle2, Search, Eye, Filter, MonitorOff, Copy, FileWarning, Network } from 'lucide-react';
 import Badge from '../../components/shared/Badge';
 
 const mockReports = [
@@ -54,6 +54,43 @@ export default function Proctoring() {
           <div>
             <p className="text-sm font-semibold text-gray-800 dark:text-gray-300">Tab Switches (Avg)</p>
             <h3 className="text-2xl font-bold text-gray-900 dark:text-white">2.4 / student</h3>
+          </div>
+        </div>
+      </div>
+
+      <div className="bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-3xl p-6 shadow-sm mb-8">
+        <div className="flex justify-between items-center mb-6 border-b border-gray-100 dark:border-gray-800 pb-4">
+          <div>
+            <h3 className="text-lg font-bold text-gray-900 dark:text-white flex items-center">
+              <Network className="w-5 h-5 mr-2 text-university-600" /> AI Plagiarism Node Graph
+            </h3>
+            <p className="text-sm text-gray-500 mt-1">Visually identifies mass-copying rings by comparing syntax trees and mathematical similarity.</p>
+          </div>
+          <Badge variant="danger">High Risk Cluster Detected</Badge>
+        </div>
+        
+        <div className="relative h-[300px] bg-gray-50 dark:bg-gray-950 rounded-2xl border border-gray-100 dark:border-gray-800 overflow-hidden flex items-center justify-center">
+          {/* Mock Node Graph using SVG */}
+          <svg className="absolute inset-0 w-full h-full" xmlns="http://www.w3.org/2000/svg">
+            <line x1="30%" y1="30%" x2="50%" y2="50%" stroke="#ef4444" strokeWidth="4" className="opacity-80 animate-pulse" />
+            <line x1="70%" y1="30%" x2="50%" y2="50%" stroke="#ef4444" strokeWidth="4" className="opacity-80 animate-pulse" />
+            <line x1="50%" y1="70%" x2="50%" y2="50%" stroke="#ef4444" strokeWidth="4" className="opacity-80 animate-pulse" />
+            
+            <line x1="20%" y1="70%" x2="30%" y2="30%" stroke="#f59e0b" strokeWidth="2" strokeDasharray="5,5" className="opacity-60" />
+            <line x1="80%" y1="70%" x2="70%" y2="30%" stroke="#e5e7eb" strokeWidth="1" className="dark:stroke-gray-700" />
+          </svg>
+          
+          <div className="absolute top-[25%] left-[25%] w-12 h-12 bg-red-100 border-2 border-red-500 rounded-full flex items-center justify-center font-bold text-red-700 z-10 shadow-lg" title="Rahul Verma (0221BCA045)">RV</div>
+          <div className="absolute top-[25%] right-[25%] w-12 h-12 bg-red-100 border-2 border-red-500 rounded-full flex items-center justify-center font-bold text-red-700 z-10 shadow-lg" title="Priya Sharma (0221BCA056)">PS</div>
+          <div className="absolute bottom-[25%] left-[45%] w-14 h-14 bg-red-600 border-4 border-red-200 rounded-full flex items-center justify-center font-bold text-white z-10 shadow-xl ring-4 ring-red-500/30" title="Source Node: Unknown Original">src</div>
+          
+          <div className="absolute bottom-[25%] left-[15%] w-10 h-10 bg-orange-100 border-2 border-orange-500 rounded-full flex items-center justify-center font-bold text-orange-700 z-10 shadow-lg" title="Partial Match">AK</div>
+          <div className="absolute bottom-[25%] right-[15%] w-10 h-10 bg-gray-100 border-2 border-gray-300 rounded-full flex items-center justify-center font-bold text-gray-700 z-10 shadow-lg dark:bg-gray-800 dark:border-gray-600 dark:text-gray-300" title="Clean">SP</div>
+
+          <div className="absolute bottom-4 right-4 bg-white/80 dark:bg-black/50 backdrop-blur-sm p-3 rounded-xl border border-gray-200 dark:border-gray-800 text-xs">
+            <div className="flex items-center space-x-2 mb-1"><div className="w-3 h-3 bg-red-500 rounded-full"></div><span>90%+ Similarity (Copied)</span></div>
+            <div className="flex items-center space-x-2 mb-1"><div className="w-3 h-3 bg-orange-500 rounded-full"></div><span>70%+ Similarity (Modified)</span></div>
+            <div className="flex items-center space-x-2"><div className="w-3 h-3 bg-gray-300 rounded-full"></div><span>&lt;30% Similarity (Clean)</span></div>
           </div>
         </div>
       </div>
