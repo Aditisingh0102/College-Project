@@ -20,12 +20,14 @@ const roadmaps = [
     id: 2,
     title: "Full Stack Web Development",
     description: "Master React, Node.js, and modern web architecture.",
-    progress: 0,
+    progress: 25,
     modules: [
-      { id: 'w1', title: 'HTML, CSS & JS Core', status: 'locked', icon: Lock },
-      { id: 'w2', title: 'React Frontend Framework', status: 'locked', icon: Lock },
-      { id: 'w3', title: 'Backend & APIs', status: 'locked', icon: Lock },
-      { id: 'w4', title: 'Capstone Project', status: 'locked', icon: Lock },
+      { id: 'w1', title: 'HTML, CSS & JS Core', status: 'completed', icon: CheckCircle2, hours: '20h', desc: 'Semantic HTML, Flexbox/Grid, ES6+ Javascript' },
+      { id: 'w2', title: 'React Frontend Framework', status: 'in-progress', icon: PlayCircle, hours: '35h', desc: 'Hooks, State Management, Routing, Component Design' },
+      { id: 'w3', title: 'Backend & APIs (Node.js)', status: 'locked', icon: Lock, hours: '40h', desc: 'Express.js, RESTful APIs, Authentication, Middleware' },
+      { id: 'w4', title: 'Database & ORM', status: 'locked', icon: Lock, hours: '30h', desc: 'MongoDB, PostgreSQL, Prisma, Query Optimization' },
+      { id: 'w5', title: 'DevOps & Deployment', status: 'locked', icon: Lock, hours: '15h', desc: 'Docker, CI/CD pipelines, AWS/Vercel deployment' },
+      { id: 'w6', title: 'Capstone Project', status: 'locked', icon: Lock, hours: '40h', desc: 'Build and deploy a full scale production application' },
     ]
   }
 ];
