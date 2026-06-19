@@ -6,12 +6,14 @@ const roadmaps = [
     id: 1,
     title: "Software Development Engineer (SDE) Prep",
     description: "The ultimate path to crack FAANG & top product companies.",
-    progress: 35,
+    progress: 45,
     modules: [
-      { id: 'm1', title: 'Data Structures Foundation', status: 'completed', icon: CheckCircle2 },
-      { id: 'm2', title: 'Advanced Algorithms', status: 'in-progress', icon: PlayCircle },
-      { id: 'm3', title: 'System Design Basics', status: 'locked', icon: Lock },
-      { id: 'm4', title: 'Mock Interviews', status: 'locked', icon: Lock },
+      { id: 'm1', title: 'Programming Fundamentals', status: 'completed', icon: CheckCircle2, hours: '15h', desc: 'Master variables, loops, OOPs concepts in C++/Java' },
+      { id: 'm2', title: 'Data Structures Foundation', status: 'completed', icon: CheckCircle2, hours: '40h', desc: 'Arrays, Strings, Linked Lists, Stacks & Queues' },
+      { id: 'm3', title: 'Advanced Algorithms', status: 'completed', icon: CheckCircle2, hours: '50h', desc: 'Trees, Graphs, Dynamic Programming & Backtracking' },
+      { id: 'm4', title: 'System Design Basics', status: 'in-progress', icon: PlayCircle, hours: '25h', desc: 'Scalability, Load Balancing, Microservices vs Monolith' },
+      { id: 'm5', title: 'Low-Level Design (LLD)', status: 'locked', icon: Lock, hours: '20h', desc: 'Design Patterns, UML, SOLID Principles' },
+      { id: 'm6', title: 'FAANG Mock Interviews', status: 'locked', icon: Lock, hours: '15h', desc: 'Live peer interviews and behavioral prep (STAR method)' },
     ]
   },
   {
@@ -68,35 +70,59 @@ export default function Roadmaps() {
               <div className="absolute top-1/2 left-0 w-full h-1 bg-gray-200 dark:bg-gray-800 -translate-y-1/2 rounded-full hidden md:block"></div>
               <div className="absolute top-1/2 left-0 h-1 bg-university-500 -translate-y-1/2 rounded-full hidden md:block transition-all duration-1000" style={{ width: `${roadmap.progress}%` }}></div>
 
-              <div className="grid grid-cols-1 md:grid-cols-4 gap-6 relative">
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 relative mt-8">
                 {roadmap.modules.map((module, i) => {
                   const Icon = module.icon;
                   const isCompleted = module.status === 'completed';
                   const isLocked = module.status === 'locked';
                   
                   return (
-                    <div key={module.id} className={`flex flex-col items-center text-center p-4 rounded-2xl transition-all ${
-                      isCompleted ? 'bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-800/50' :
-                      isLocked ? 'bg-gray-50 dark:bg-gray-950 border border-gray-100 dark:border-gray-800 opacity-60' :
-                      'bg-university-50 dark:bg-university-900/20 border-2 border-university-500 shadow-md shadow-university-500/20 transform hover:-translate-y-1'
+                    <div key={module.id} className={`flex flex-col text-left p-6 rounded-2xl transition-all relative overflow-hidden ${
+                      isCompleted ? 'bg-green-50 dark:bg-green-900/10 border border-green-200 dark:border-green-800/50 hover:shadow-lg' :
+                      isLocked ? 'bg-gray-50 dark:bg-gray-950 border border-gray-100 dark:border-gray-800 opacity-70 grayscale' :
+                      'bg-university-50 dark:bg-university-900/20 border-2 border-university-500 shadow-lg shadow-university-500/20 transform hover:-translate-y-1'
                     }`}>
-                      <div className={`w-12 h-12 rounded-full flex items-center justify-center mb-3 ${
-                        isCompleted ? 'bg-green-500 text-white' :
-                        isLocked ? 'bg-gray-200 dark:bg-gray-800 text-gray-500' :
-                        'bg-university-600 text-white'
-                      }`}>
-                        <Icon className="w-6 h-6" />
+                      {/* Decorative Number */}
+                      <div className={`absolute -right-4 -top-4 text-8xl font-black opacity-[0.03] ${isLocked ? 'text-gray-900' : 'text-university-900'}`}>
+                        {i + 1}
                       </div>
-                      <h3 className={`font-bold text-sm ${isLocked ? 'text-gray-500 dark:text-gray-500' : 'text-gray-900 dark:text-white'}`}>{module.title}</h3>
-                      <p className="text-xs text-gray-500 mt-1 font-medium uppercase tracking-wider">Module {i + 1}</p>
+
+                      <div className="flex items-center justify-between mb-4 relative z-10">
+                        <div className={`w-12 h-12 rounded-xl flex items-center justify-center shadow-sm ${
+                          isCompleted ? 'bg-green-500 text-white' :
+                          isLocked ? 'bg-gray-200 dark:bg-gray-800 text-gray-500' :
+                          'bg-university-600 text-white animate-pulse'
+                        }`}>
+                          <Icon className="w-6 h-6" />
+                        </div>
+                        <span className={`text-xs font-bold px-3 py-1 rounded-full ${
+                           isCompleted ? 'bg-green-200 text-green-800 dark:bg-green-800/40 dark:text-green-300' :
+                           isLocked ? 'bg-gray-200 text-gray-600 dark:bg-gray-800 dark:text-gray-400' :
+                           'bg-university-200 text-university-800 dark:bg-university-800/40 dark:text-university-300'
+                        }`}>
+                          {module.hours || 'Module'}
+                        </span>
+                      </div>
+                      
+                      <div className="relative z-10 flex-1">
+                        <p className="text-xs text-gray-500 font-bold uppercase tracking-wider mb-1">Step 0{i + 1}</p>
+                        <h3 className={`font-bold text-lg mb-2 leading-tight ${isLocked ? 'text-gray-600 dark:text-gray-400' : 'text-gray-900 dark:text-white'}`}>{module.title}</h3>
+                        {module.desc && (
+                          <p className={`text-sm leading-relaxed ${isLocked ? 'text-gray-400 dark:text-gray-500' : 'text-gray-600 dark:text-gray-300'}`}>
+                            {module.desc}
+                          </p>
+                        )}
+                      </div>
                       
                       {!isLocked && (
-                        <button className={`mt-4 px-4 py-1.5 rounded-lg text-xs font-bold transition-colors ${
-                          isCompleted ? 'bg-green-100 text-green-700 dark:bg-green-900/40 dark:text-green-400 hover:bg-green-200' :
-                          'bg-university-600 text-white hover:bg-university-700'
-                        }`}>
-                          {isCompleted ? 'Review' : 'Continue'}
-                        </button>
+                        <div className="mt-6 pt-4 border-t border-gray-200 dark:border-gray-800/50 relative z-10">
+                          <button className={`w-full py-2.5 rounded-xl text-sm font-bold transition-all flex items-center justify-center shadow-sm ${
+                            isCompleted ? 'bg-white dark:bg-gray-800 border border-green-200 dark:border-green-800 text-green-700 dark:text-green-400 hover:bg-green-50 dark:hover:bg-green-900/40' :
+                            'bg-university-600 text-white hover:bg-university-700 hover:shadow-md'
+                          }`}>
+                            {isCompleted ? 'Review Material' : 'Resume Learning'}
+                          </button>
+                        </div>
                       )}
                     </div>
                   );
