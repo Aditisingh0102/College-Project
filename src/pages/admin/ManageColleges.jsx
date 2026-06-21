@@ -151,7 +151,7 @@ export default function ManageColleges() {
                               <span className="text-sm font-medium text-gray-900 dark:text-white">{s.name}</span>
                               <span className="text-xs text-gray-500 font-mono">{s.erpId}</span>
                             </div>
-                            <Badge variant="success">Rating: {s.rating}</Badge>
+                            
                           </div>
                         ))}
                       </div>

@@ -19,10 +19,41 @@ export const mockColleges = [
 ];
 
 export const mockStudents = [
+
+
+
   { id: "st1", name: "Aarav Sharma", photoUrl: "https://i.pravatar.cc/150?u=st1", erpId: "UIT2024CSE0145", email: "aarav.s@university.edu", college: "UIT", specialization: "B.Tech CSE", year: "2nd Year", semester: "Sem 3", domain: "Computer Science", enrolledBatches: ["b1"], rating: 1450, problemsSolved: 42, contestsParticipated: 5, rank: 12, badges: ["Fast Solver", "Top 10%"] },
   { id: "st2", name: "Priya Patel", photoUrl: "https://i.pravatar.cc/150?u=st2", erpId: "UIT2024CSE0146", email: "priya.p@university.edu", college: "UIT", specialization: "B.Tech CSE", year: "2nd Year", semester: "Sem 3", domain: "Computer Science", enrolledBatches: ["b1"], rating: 1620, problemsSolved: 85, contestsParticipated: 8, rank: 3, badges: ["Code Master"] },
   { id: "st3", name: "Rohan Gupta", photoUrl: "https://i.pravatar.cc/150?u=st3", erpId: "UIT2023CSE0012", email: "rohan.g@university.edu", college: "UIT", specialization: "B.Tech CSE", year: "3rd Year", semester: "Sem 5", domain: "Computer Science", enrolledBatches: ["b2"], rating: 1200, problemsSolved: 15, contestsParticipated: 2, rank: 45, badges: [] }
 ];
+
+for (let i = 4; i <= 35; i++) {
+  const branches = ["B.Tech CSE", "B.Tech Mech", "B.Tech ECE", "B.Tech Civil", "Cyber Security"];
+  const years = ["1st Year", "2nd Year", "3rd Year", "4th Year"];
+  const sems = ["Sem 1", "Sem 3", "Sem 5", "Sem 7"];
+  
+  const yIndex = i % 4;
+  const bIndex = i % 5;
+  
+  mockStudents.push({
+    id: `st${i}`,
+    name: `Demo Student ${i}`,
+    photoUrl: `https://i.pravatar.cc/150?u=st${i}`,
+    erpId: `UIT2024${branches[bIndex].substring(7,10).toUpperCase() || 'CSE'}${1000+i}`,
+    email: `demo.st${i}@university.edu`,
+    college: i % 7 === 0 ? "USCS" : "UIT",
+    specialization: branches[bIndex],
+    year: years[yIndex],
+    semester: sems[yIndex],
+    domain: "Engineering",
+    enrolledBatches: [`b${(i%3)+1}`],
+    rating: 1000 + (i * 15),
+    problemsSolved: i * 3,
+    contestsParticipated: i % 4,
+    rank: 50 + i,
+    badges: i % 3 === 0 ? ["Top Coder"] : []
+  });
+}
 
 export const mockFaculty = [
   { id: "f1", name: "Dr. Vikram Singh", photoUrl: "https://i.pravatar.cc/150?u=f1", erpId: "FAC001", email: "vikram.s@university.edu", college: "UIT", department: "Computer Science", designation: "Associate Professor", branch: "CSE", subjectsTaught: ["Data Structures", "Algorithms"], assignedBatches: ["b1"], lecturesUploaded: 12, assessmentsCreated: 4 },

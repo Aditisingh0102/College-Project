@@ -1,8 +1,11 @@
 import React from 'react';
 
-export default function StatCard({ title, value, icon: Icon, colorClass = "text-university-600 bg-university-100 dark:text-university-400 dark:bg-university-900/30" }) {
+export default function StatCard({ title, value, icon: Icon, colorClass = "text-university-600 bg-university-100 dark:text-university-400 dark:bg-university-900/30", onClick }) {
   return (
-    <div className="bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-2xl p-6 flex items-center space-x-4 shadow-sm hover:shadow-md transition-shadow">
+    <div 
+      onClick={onClick}
+      className={`bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-2xl p-6 flex items-center space-x-4 shadow-sm transition-all ${onClick ? 'cursor-pointer hover:shadow-md hover:border-university-500' : ''}`}
+    >
       <div className={`p-4 rounded-xl ${colorClass}`}>
         <Icon className="w-8 h-8" />
       </div>

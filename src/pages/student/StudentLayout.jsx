@@ -1,8 +1,9 @@
 import React, { Suspense, lazy } from 'react';
 import { Routes, Route, NavLink, Navigate } from 'react-router-dom';
 import Navbar from '../../components/shared/Navbar';
+import Announcements from '../shared/Announcements';
 import Sidebar from '../../components/shared/Sidebar';
-import { LayoutDashboard, Code2, Trophy, Users, PlaySquare, User, BookOpen, Map } from 'lucide-react';
+import { LayoutDashboard, Code2, Trophy, Users, PlaySquare, User, BookOpen, Map , Megaphone  } from 'lucide-react';
 import { GlobalLoader } from '../../App';
 import { useAppContext } from '../../context/AppContext';
 
@@ -26,6 +27,7 @@ export default function StudentLayout() {
 
   const navItems = [
     { to: "/student", label: "Dashboard", icon: LayoutDashboard, exact: true },
+    { to: "/student/announcements", label: "Notice Board", icon: Megaphone },
     { to: "/student/courses", label: "Courses", icon: Map },
     { to: "/student/problems", label: "Problems", icon: Code2 },
     { to: "/student/contests", label: "Contests", icon: Trophy },
@@ -57,6 +59,7 @@ export default function StudentLayout() {
             <Route path="/lectures" element={<Lectures />} />
             <Route path="/profile" element={<Profile />} />
             <Route path="/placements" element={<Placements />} />
+            <Route path="/announcements" element={<Announcements />} />
             <Route path="*" element={<Navigate to="/student" />} />
           </Routes>
         </Suspense>

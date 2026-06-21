@@ -1,6 +1,7 @@
 import React from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
 import Navbar from '../../components/shared/Navbar';
+import Announcements from '../shared/Announcements';
 import Sidebar from '../../components/shared/Sidebar';
 import Dashboard from './Dashboard';
 import MyBatches from './MyBatches';
@@ -17,11 +18,12 @@ import AssessmentManager from './courses/AssessmentManager';
 import QuizCreator from './courses/QuizCreator';
 import CurriculumResources from './courses/CurriculumResources';
 
-import { LayoutDashboard, Users, PlaySquare, FileText, ClipboardList, User, Beaker, BookOpen, Trophy } from 'lucide-react';
+import { LayoutDashboard, Users, PlaySquare, FileText, ClipboardList, User, Beaker, BookOpen, Trophy , Megaphone  } from 'lucide-react';
 
 export default function FacultyLayout() {
   const navItems = [
     { to: "/faculty", label: "Dashboard", icon: LayoutDashboard, exact: true },
+    { to: "/faculty/announcements", label: "Notice Board", icon: Megaphone },
     { 
       label: "Course Hub", 
       icon: BookOpen,
@@ -60,6 +62,7 @@ export default function FacultyLayout() {
             <Route path="/courses/question-lab" element={<QuestionLab />} />
             <Route path="/contests" element={<ContestManager />} />
             <Route path="/profile" element={<FacultyProfile />} />
+            <Route path="/announcements" element={<Announcements />} />
             <Route path="*" element={<Navigate to="/faculty" />} />
           </Routes>
         </main>
