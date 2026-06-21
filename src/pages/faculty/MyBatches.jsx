@@ -1,18 +1,32 @@
 import React, { useState } from 'react';
 import { useAppContext } from '../../context/AppContext';
-import { Users, Search, ChevronRight, User, BookOpen, AlertCircle, BarChart2, ArrowLeft } from 'lucide-react';
+import { Users, Search, ChevronRight, User, BookOpen, AlertCircle, BarChart2, ArrowLeft, GraduationCap } from 'lucide-react';
 import Badge from '../../components/shared/Badge';
+import { useNavigate } from 'react-router-dom';
+
+const DUMMY_STUDENTS = [
+  { id: 'd1', name: 'Aarav Sharma', erpId: '0123456789', year: '3rd', semester: '6th', photoUrl: 'https://i.pravatar.cc/150?u=1' },
+  { id: 'd2', name: 'Priya Patel', erpId: '0987654321', year: '3rd', semester: '6th', photoUrl: 'https://i.pravatar.cc/150?u=2' },
+  { id: 'd3', name: 'Rohan Gupta', erpId: '1122334455', year: '3rd', semester: '6th', photoUrl: 'https://i.pravatar.cc/150?u=3' },
+  { id: 'd4', name: 'Ananya Singh', erpId: '5566778899', year: '3rd', semester: '6th', photoUrl: 'https://i.pravatar.cc/150?u=4' },
+  { id: 'd5', name: 'Vikram Reddy', erpId: '6677889900', year: '3rd', semester: '6th', photoUrl: 'https://i.pravatar.cc/150?u=5' },
+];
 
 export default function MyBatches() {
   const { currentUser, students } = useAppContext();
   const [selectedBatch, setSelectedBatch] = useState(null);
+  const navigate = useNavigate();
 
   if (!currentUser) return null;
 
-  const batches = currentUser.assignedBatches || [];
+  const dummyBatches = ['CS-2024-A', 'CS-2024-B', 'IT-2024-A'];
+  const batches = currentUser.assignedBatches?.length > 0 ? currentUser.assignedBatches : dummyBatches;
 
   if (selectedBatch) {
-    const batchStudents = students.filter(s => s.enrolledBatches.includes(selectedBatch));
+    let batchStudents = students.filter(s => s.enrolledBatches && s.enrolledBatches.includes(selectedBatch));
+    if (batchStudents.length === 0) {
+      batchStudents = DUMMY_STUDENTS;
+    }
     
     return (
       <div className="space-y-6 animate-in slide-in-from-right-8 duration-300">
@@ -36,24 +50,36 @@ export default function MyBatches() {
           <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-4 flex items-center">
             <BarChart2 className="w-5 h-5 mr-2 text-university-600" /> Batch Skill Heatmap
           </h3>
-          <p className="text-sm text-gray-500 dark:text-gray-400 mb-6">Visual indicator of aggregate performance across key topics. Red indicates the batch is struggling and requires intervention.</p>
+          <p className="text-sm text-gray-500 dark:text-gray-400 mb-6">Visual indicator of aggregate performance across key topics. Click to view topic assessments.</p>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-            <div className="bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-800/50 p-4 rounded-xl text-center">
+            <div 
+              onClick={() => navigate('/faculty/courses/assessments')}
+              className="bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-800/50 p-4 rounded-xl text-center cursor-pointer hover:shadow-md hover:scale-[1.02] transition-all"
+            >
               <p className="text-sm font-semibold text-green-800 dark:text-green-300 mb-1">Arrays & Hashing</p>
               <h4 className="text-2xl font-bold text-green-600 dark:text-green-400">85%</h4>
               <p className="text-xs text-green-700/70 dark:text-green-500 mt-1">Passing</p>
             </div>
-            <div className="bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-800/50 p-4 rounded-xl text-center">
+            <div 
+              onClick={() => navigate('/faculty/courses/assessments')}
+              className="bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-800/50 p-4 rounded-xl text-center cursor-pointer hover:shadow-md hover:scale-[1.02] transition-all"
+            >
               <p className="text-sm font-semibold text-green-800 dark:text-green-300 mb-1">Two Pointers</p>
               <h4 className="text-2xl font-bold text-green-600 dark:text-green-400">72%</h4>
               <p className="text-xs text-green-700/70 dark:text-green-500 mt-1">Passing</p>
             </div>
-            <div className="bg-orange-50 dark:bg-orange-900/20 border border-orange-200 dark:border-orange-800/50 p-4 rounded-xl text-center relative overflow-hidden">
+            <div 
+              onClick={() => navigate('/faculty/courses/assessments')}
+              className="bg-orange-50 dark:bg-orange-900/20 border border-orange-200 dark:border-orange-800/50 p-4 rounded-xl text-center relative overflow-hidden cursor-pointer hover:shadow-md hover:scale-[1.02] transition-all"
+            >
               <p className="text-sm font-semibold text-orange-800 dark:text-orange-300 mb-1">Binary Trees</p>
               <h4 className="text-2xl font-bold text-orange-600 dark:text-orange-400">45%</h4>
               <p className="text-xs text-orange-700/70 dark:text-orange-500 mt-1">Needs Work</p>
             </div>
-            <div className="bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800/50 p-4 rounded-xl text-center relative">
+            <div 
+              onClick={() => navigate('/faculty/courses/assessments')}
+              className="bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800/50 p-4 rounded-xl text-center relative cursor-pointer hover:shadow-md hover:scale-[1.02] transition-all"
+            >
               <div className="absolute top-2 right-2"><AlertCircle className="w-4 h-4 text-red-500" /></div>
               <p className="text-sm font-semibold text-red-800 dark:text-red-300 mb-1">Dynamic Prog</p>
               <h4 className="text-2xl font-bold text-red-600 dark:text-red-400">22%</h4>
@@ -75,7 +101,11 @@ export default function MyBatches() {
               </thead>
               <tbody className="divide-y divide-gray-100 dark:divide-gray-800">
                 {batchStudents.map(student => (
-                  <tr key={student.id} className="hover:bg-gray-50 dark:hover:bg-gray-800/50 transition">
+                  <tr 
+                    key={student.id} 
+                    onClick={() => navigate('/faculty/records')}
+                    className="hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors cursor-pointer"
+                  >
                     <td className="px-6 py-4">
                       <div className="flex items-center space-x-3">
                         <img src={student.photoUrl} alt="" className="w-8 h-8 rounded-full border border-gray-200 dark:border-gray-700" />
@@ -106,7 +136,10 @@ export default function MyBatches() {
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {batches.map(batchId => {
-          const batchStudents = students.filter(s => s.enrolledBatches.includes(batchId));
+          let batchStudents = students.filter(s => s.enrolledBatches && s.enrolledBatches.includes(batchId));
+          if (batchStudents.length === 0) {
+            batchStudents = DUMMY_STUDENTS;
+          }
           return (
             <div 
               key={batchId} 
@@ -126,11 +159,6 @@ export default function MyBatches() {
             </div>
           );
         })}
-        {batches.length === 0 && (
-          <div className="col-span-full py-12 text-center text-gray-500">
-            You currently have no batches assigned. Contact your HOD.
-          </div>
-        )}
       </div>
     </div>
   );
